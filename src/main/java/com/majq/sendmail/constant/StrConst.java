@@ -1,6 +1,5 @@
 package com.majq.sendmail.constant;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

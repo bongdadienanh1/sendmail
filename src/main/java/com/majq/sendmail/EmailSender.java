@@ -1,16 +1,26 @@
 package com.majq.sendmail;
 
+
 import com.majq.sendmail.constant.StrConst;
 import com.majq.sendmail.constant.enums.*;
+import com.majq.sendmail.templatebean.Reportmail;
+import com.majq.sendmail.utils.FreemarkerUtil;
+import freemarker.template.TemplateException;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 发送邮件
@@ -22,7 +32,7 @@ public class EmailSender {
          String content = "测试邮件";
          String imgPath = "C:\\Users\\Mr.X\\Desktop\\5.ico";
          String attachPath = "C:\\Users\\Mr.X\\Desktop\\css学习";
-         sendMail(SenderlEnum.SELF_COMPANY_MAIL,RecieverEnum.SelfMailTest,CCEnum.SelfMailTest,BCCEnum.SelfMailTest, subject, content, imgPath, attachPath);
+         sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest, subject, content, imgPath, attachPath);
      }
 
     /**
@@ -31,7 +41,7 @@ public class EmailSender {
      * @param recieverEnum
      * @throws MessagingException
      */
-     private static void sendMail(SenderlEnum senderlEnum,RecieverEnum recieverEnum,CCEnum ccEnum, BCCEnum bccEnum,String subject,String content,String imgPath,String attachPath) throws MessagingException {
+    private static void sendMail(SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum, String subject, String content, String imgPath, String attachPath) throws MessagingException {
          Properties properties = getMailProperties(senderlEnum);
          Session session = getSession(properties,senderlEnum);
          Message message = getMimeMessage( session, senderlEnum, recieverEnum,ccEnum, bccEnum,subject,content,imgPath,attachPath);
@@ -57,7 +67,7 @@ public class EmailSender {
      * @param senderlEnum
      * @return
      */
-     private static Session getSession(Properties properties,SenderlEnum senderlEnum){
+    private static Session getSession(Properties properties, SenderlEnum senderlEnum) {
          Session session = Session.getInstance(properties);
          session.setDebug(senderlEnum.isDebuggable());
          return session;
@@ -70,7 +80,7 @@ public class EmailSender {
      * @param senderlEnum
      * @throws MessagingException
      */
-     private static void exeSendTask(Session session,Message message,SenderlEnum senderlEnum) throws MessagingException {
+    private static void exeSendTask(Session session, Message message, SenderlEnum senderlEnum) throws MessagingException {
          Transport transport = session.getTransport();
          transport.connect(senderlEnum.getSenderAccount(),senderlEnum.getSenderPassword());
          transport.sendMessage(message,message.getAllRecipients());
@@ -83,16 +93,47 @@ public class EmailSender {
      * @return
      */
      public static MimeMessage getMimeMessage(Session session, SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum,
-                                              String subject,String content,String imgPath,String attachPath) throws MessagingException{
+                                              String subject, String content, String imgPath, String attachPath) throws MessagingException {
          MimeMessage mimeMessage = null;
          if(null != session && null != senderlEnum && null != recieverEnum)
          {
              mimeMessage = new MimeMessage(session);
              setHeader(mimeMessage,senderlEnum,recieverEnum,ccEnum,bccEnum,subject);
-             assembleBody(mimeMessage, content, imgPath, attachPath);
+             //assembleBody(mimeMessage, content, imgPath, attachPath);
+             try {
+                 assembleBody(mimeMessage, "reportmail.ftl", getContentMap());
+             } catch (IOException e) {
+                 e.printStackTrace();
+             } catch (TemplateException e) {
+                 e.printStackTrace();
+             }
          }
          return mimeMessage;
      }
+
+    private static Map<String, Object> getContentMap() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("reportmail", getMailBean());
+        return map;
+    }
+
+    private static Reportmail getMailBean() {
+        String tddate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String name = "马俊强";
+        String department = "技术中心—架构组";
+        String timeam = "08:30-11:30";
+        String workcontentam = "EDR2.0舆情接口开发";
+        String wayam = "讲述";
+        String telleram = "陈鑫";
+        String timepm = "13:00-17:30";
+        String waypm = "讲述";
+        String workcontentpm = "EDR2.0舆情接口开发";
+        String tellerpm = "陈鑫";
+        String experience = "很棒";
+        String suggestion = "没有";
+        Reportmail reportmail = new Reportmail(tddate, name, department, timeam, workcontentam, wayam, telleram, timepm, waypm, workcontentpm, tellerpm, experience, suggestion);
+        return reportmail;
+    }
 
     /**
      * 设置邮件头部信息
@@ -105,7 +146,7 @@ public class EmailSender {
      * @return
      * @throws MessagingException
      */
-     private static void setHeader(MimeMessage mimeMessage,SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum,String subject) throws MessagingException {
+    private static void setHeader(MimeMessage mimeMessage, SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum, String subject) throws MessagingException {
          if(null != mimeMessage && null != senderlEnum && null != recieverEnum){
              mimeMessage.setFrom(new InternetAddress(senderlEnum.getSenderAddress()));
              mimeMessage.setRecipients(MimeMessage.RecipientType.TO,recieverEnum.getRecieverAddress());
@@ -130,6 +171,13 @@ public class EmailSender {
          body = getMultipart(bodyParts,"");
          mimeMessage.setContent(body,StrConst.CONTENT_TYPE);
      }
+
+    private static void assembleBody(MimeMessage mimeMessage, String tempName, Map<String, Object> mailContent) throws IOException, TemplateException, MessagingException {
+        if (null != mimeMessage && null != mailContent && null != tempName && tempName.length() > 0) {
+            mimeMessage.setContent(generateHtmlBody(tempName, mailContent), "text/html;charset=UTF-8");
+        }
+    }
+
 
     /**
      * 根据传入内容构造MimeBodyPart
@@ -180,4 +228,16 @@ public class EmailSender {
         }
         return multipart;
     }
+
+
+    private static String generateHtmlBody(String templateName, Map<String, Object> mailContent) throws IOException, TemplateException {
+        if (null != mailContent) {
+            StringWriter stringWriter = new StringWriter();
+            FreemarkerUtil.print(templateName, mailContent, stringWriter);
+            return stringWriter.toString();
+        }
+        return null;
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.majq.sendmail;
 
+
 import com.majq.sendmail.utils.MailUtil;
 
 import javax.mail.internet.InternetAddress;

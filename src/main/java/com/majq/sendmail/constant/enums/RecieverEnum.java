@@ -1,11 +1,10 @@
 package com.majq.sendmail.constant.enums;
 
+
 import com.majq.sendmail.constant.StrConst;
 import com.majq.sendmail.utils.MailUtil;
 
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

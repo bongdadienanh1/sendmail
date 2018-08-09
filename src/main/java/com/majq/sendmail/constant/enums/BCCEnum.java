@@ -1,5 +1,6 @@
 package com.majq.sendmail.constant.enums;
 
+
 import com.majq.sendmail.constant.StrConst;
 import com.majq.sendmail.utils.MailUtil;
 

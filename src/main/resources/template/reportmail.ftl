@@ -1,0 +1,51 @@
+<html>
+<head>
+    <style type="text/css">
+        table, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<div>
+    <table>
+        <tr>
+            <td>日期</td>
+            <td>${reportmail.tddate}</td>
+        </tr>
+        <tr>
+            <td>
+                姓名
+            </td>
+            <td>${reportmail.name}</td>
+            <td>部门</td>
+            <td>${reportmail.department}</td>
+        </tr>
+        <tr>
+            <td>时间</td>
+            <td>培训内容</td>
+            <td>培训方式</td>
+            <td>培训讲师</td>
+        </tr>
+        <tr>
+            <td>${reportmail.timeam}</td>
+            <td>${reportmail.workcontentam}</td>
+            <td>${reportmail.wayam}</td>
+            <td>${reportmail.telleram}</td>
+        </tr>
+        <tr>
+            <td>${reportmail.timepm}</td>
+            <td>${reportmail.workcontentpm}</td>
+            <td>${reportmail.waypm}</td>
+            <td>${reportmail.tellerpm}</td>
+        </tr>
+        <tr>
+            <td>学习心得</td>
+            <td>${reportmail.experience}</td>
+        </tr>
+        <tr>
+            <td>问题建议</td>
+            <td>${reportmail.suggestion}</td>
+        </tr>
+    </table>
+</div>
+</html>
