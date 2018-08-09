@@ -1,7 +1,13 @@
 package com.majq.taskschedule;
 
 
+import java.util.concurrent.TimeUnit;
+
 public abstract class AbstractTask implements Runnable {
+
+    protected long initialDelay;
+    protected long period;
+    protected TimeUnit unit;
 
     /**
      * When an object implementing interface <code>Runnable</code> is used
@@ -20,4 +26,28 @@ public abstract class AbstractTask implements Runnable {
     }
 
     protected abstract void excute();
+
+    public long getInitialDelay() {
+        return initialDelay;
+    }
+
+    public void setInitialDelay(long initialDelay) {
+        this.initialDelay = initialDelay;
+    }
+
+    public long getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(long period) {
+        this.period = period;
+    }
+
+    public TimeUnit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(TimeUnit unit) {
+        this.unit = unit;
+    }
 }

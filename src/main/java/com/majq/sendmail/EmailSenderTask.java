@@ -2,6 +2,7 @@ package com.majq.sendmail;
 
 
 import com.majq.common.constant.StrConst;
+import com.majq.common.utils.DateUtil;
 import com.majq.common.utils.FreemarkerUtil;
 import com.majq.sendmail.enums.*;
 import com.majq.sendmail.templatebean.Reportmail;
@@ -22,11 +23,26 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 发送邮件
  */
 public class EmailSenderTask extends AbstractTask {
+
+    public EmailSenderTask(long initDelay, long period, TimeUnit unit) {
+        this.initialDelay = initDelay;
+        this.period = period;
+        this.unit = unit;
+    }
+
+    public EmailSenderTask() {
+        this.initialDelay = DateUtil.getTimeMillis("17:30:00") - System.currentTimeMillis();
+        this.initialDelay = this.initialDelay > 0 ? this.initialDelay : this.period + this.initialDelay;
+        this.period = 24 * 60 * 60 * 1000;
+        this.unit = TimeUnit.MILLISECONDS;
+    }
+
     @Override
     protected void excute() {
         try {
@@ -36,9 +52,6 @@ public class EmailSenderTask extends AbstractTask {
         }
     }
 
-//    public static void main(String [] args) throws MessagingException {
-//         sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest);
-//     }
 
     /**
      * 发送邮件
