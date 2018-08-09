@@ -1,8 +1,8 @@
-package com.majq.sendmail.constant.enums;
+package com.majq.sendmail.enums;
 
 
-import com.majq.sendmail.constant.StrConst;
-import com.majq.sendmail.utils.MailUtil;
+import com.majq.common.constant.StrConst;
+import com.majq.common.utils.MailUtil;
 
 import javax.mail.internet.InternetAddress;
 import java.util.Arrays;

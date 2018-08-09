@@ -1,4 +1,4 @@
-package com.majq.sendmail.utils;
+package com.majq.common.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;

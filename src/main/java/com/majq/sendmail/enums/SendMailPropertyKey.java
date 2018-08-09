@@ -1,7 +1,7 @@
-package com.majq.sendmail.constant.enums;
+package com.majq.sendmail.enums;
 
 
-import com.majq.sendmail.constant.StrConst;
+import com.majq.common.constant.StrConst;
 
 public enum SendMailPropertyKey {
     MAIL_SMTP_AUTH(StrConst.MAIL_SMTP_AUTH),

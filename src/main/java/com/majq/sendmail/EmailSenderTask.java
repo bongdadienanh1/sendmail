@@ -1,10 +1,11 @@
 package com.majq.sendmail;
 
 
-import com.majq.sendmail.constant.StrConst;
-import com.majq.sendmail.constant.enums.*;
+import com.majq.common.constant.StrConst;
+import com.majq.common.utils.FreemarkerUtil;
+import com.majq.sendmail.enums.*;
 import com.majq.sendmail.templatebean.Reportmail;
-import com.majq.sendmail.utils.FreemarkerUtil;
+import com.majq.taskschedule.AbstractTask;
 import freemarker.template.TemplateException;
 
 import javax.activation.DataHandler;
@@ -25,11 +26,19 @@ import java.util.*;
 /**
  * 发送邮件
  */
-public class EmailSender {
+public class EmailSenderTask extends AbstractTask {
+    @Override
+    protected void excute() {
+        try {
+            sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
-     public static void main(String [] args) throws MessagingException {
-         sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest);
-     }
+//    public static void main(String [] args) throws MessagingException {
+//         sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest);
+//     }
 
     /**
      * 发送邮件

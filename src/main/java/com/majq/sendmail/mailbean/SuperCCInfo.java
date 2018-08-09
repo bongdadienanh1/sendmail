@@ -1,7 +1,7 @@
-package com.majq.sendmail;
+package com.majq.sendmail.mailbean;
 
 
-import com.majq.sendmail.utils.MailUtil;
+import com.majq.common.utils.MailUtil;
 
 import javax.mail.internet.InternetAddress;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.majq.sendmail.utils;
+package com.majq.common.utils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

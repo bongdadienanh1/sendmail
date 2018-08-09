@@ -1,4 +1,4 @@
-package com.majq.sendmail.utils;
+package com.majq.common.utils;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

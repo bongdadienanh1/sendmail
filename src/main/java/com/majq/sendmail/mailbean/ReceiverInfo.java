@@ -1,4 +1,4 @@
-package com.majq.sendmail;
+package com.majq.sendmail.mailbean;
 
 
 /**

@@ -1,112 +1,130 @@
-package com.majq.sendmail.constant.enums;
-
-
-import com.majq.sendmail.constant.StrConst;
+package com.majq.sendmail.mailbean;
 
 /**
- * 发件人枚举
+ * 发件人信息
  */
-public enum SenderlEnum {
-    SELF_COMPANY_MAIL(StrConst.SELF_COMPANY_TRUE_STR,StrConst.SELF_COMPANY_SEND_PROTOCOL,StrConst.SELF_COMPANY_SEND_SERVER,StrConst.SELF_COMPANY_RECIEVE_PROTOCOL,StrConst.SELF_COMPANY_REVIEVE_SERVER,
-            true,StrConst.SELF_COMPANY_SENDER_ADDRESS,StrConst.SELF_COMPANY_SENDER_ACCOUNT,StrConst.SELF_COMPANY_SENDER_PASSWORD,"公司邮箱地址");
+public class SenderInfo {
     /**
      * 用户认证方式
      */
-    String authType;
+    private String authType;
     /**
      * 发件传输协议
      */
-    String sendProtocol;
+    private String sendProtocol;
     /**
      * 发件服务器地址
      */
-    String sendServerIp;
+    private String sendServerIp;
     /**
      * 收件传输协议
      */
-    String receiveProtocol;
+    private String receiveProtocol;
     /**
      * 收件服务器
      */
-    String recieveServerIp;
+    private String recieveServerIp;
     /**
      * 是否打印调试信息
      */
-    boolean debuggable;
+    private boolean debuggable;
     /**
      * 发件人地址
      */
-    String senderAddress;
+    private String senderAddress;
     /**
      * 发件人账号
      */
-    String senderAccount;
+    private String senderAccount;
     /**
      * 发件人密码
      */
-    String senderPassword;
-
+    private String senderPassword;
     /**
      * 备注
      */
-    String description;
-
-
-    SenderlEnum(String authType, String sendProtocol, String sendServerIp,
-                String receiveProtocol, String recieveServerIp, boolean debuggable,
-                String senderAddress,String senderAccount, String senderPassword,
-                String description) {
-        this.authType = authType;
-        this.sendProtocol = sendProtocol;
-        this.sendServerIp = sendServerIp;
-        this.receiveProtocol = receiveProtocol;
-        this.recieveServerIp = recieveServerIp;
-        this.debuggable = debuggable;
-        this.senderAddress = senderAddress;
-        this.senderAccount = senderAccount;
-        this.senderPassword = senderPassword;
-        this.description = description;
-    }
+    private String description;
 
     public String getAuthType() {
         return authType;
+    }
+
+    public void setAuthType(String authType) {
+        this.authType = authType;
     }
 
     public String getSendProtocol() {
         return sendProtocol;
     }
 
+    public void setSendProtocol(String sendProtocol) {
+        this.sendProtocol = sendProtocol;
+    }
+
     public String getSendServerIp() {
         return sendServerIp;
+    }
+
+    public void setSendServerIp(String sendServerIp) {
+        this.sendServerIp = sendServerIp;
     }
 
     public String getReceiveProtocol() {
         return receiveProtocol;
     }
 
+    public void setReceiveProtocol(String receiveProtocol) {
+        this.receiveProtocol = receiveProtocol;
+    }
+
     public String getRecieveServerIp() {
         return recieveServerIp;
+    }
+
+    public void setRecieveServerIp(String recieveServerIp) {
+        this.recieveServerIp = recieveServerIp;
     }
 
     public boolean isDebuggable() {
         return debuggable;
     }
 
+    public void setDebuggable(boolean debuggable) {
+        this.debuggable = debuggable;
+    }
+
     public String getSenderAddress() {
         return senderAddress;
+    }
+
+    public void setSenderAddress(String senderAddress) {
+        this.senderAddress = senderAddress;
     }
 
     public String getSenderAccount() {
         return senderAccount;
     }
 
+    public void setSenderAccount(String senderAccount) {
+        this.senderAccount = senderAccount;
+    }
+
     public String getSenderPassword() {
         return senderPassword;
     }
 
+    public void setSenderPassword(String senderPassword) {
+        this.senderPassword = senderPassword;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("SenderlEnum{");
+        final StringBuffer sb = new StringBuffer("SenderInfo{");
         sb.append("authType='").append(authType).append('\'');
         sb.append(", sendProtocol='").append(sendProtocol).append('\'');
         sb.append(", sendServerIp='").append(sendServerIp).append('\'');
