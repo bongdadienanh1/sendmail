@@ -11,7 +11,7 @@ public class DateUtil {
         DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         Date currentDateTime = null;
         try {
-            currentDateTime = df.parse(df1.format(new Date()) + time);
+            currentDateTime = df.parse(df1.format(new Date()) + " " + time);
         } catch (ParseException e) {
             e.printStackTrace();
         }

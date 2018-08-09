@@ -37,21 +37,11 @@ public class EmailSenderTask extends AbstractTask {
     }
 
     public EmailSenderTask() {
+        this.unit = TimeUnit.MILLISECONDS;
+        this.period = 24 * 60 * 60 * 1000;
         this.initialDelay = DateUtil.getTimeMillis("17:30:00") - System.currentTimeMillis();
         this.initialDelay = this.initialDelay > 0 ? this.initialDelay : this.period + this.initialDelay;
-        this.period = 24 * 60 * 60 * 1000;
-        this.unit = TimeUnit.MILLISECONDS;
     }
-
-    @Override
-    protected void excute() {
-        try {
-            sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     /**
      * 发送邮件
@@ -62,9 +52,27 @@ public class EmailSenderTask extends AbstractTask {
     public static void sendMail(SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum) throws MessagingException {
          Properties properties = getMailProperties(senderlEnum);
          Session session = getSession(properties,senderlEnum);
-        Message message = getMimeMessage(session, senderlEnum, recieverEnum, ccEnum, bccEnum, null, getSubject(), null, null);
+        Message message = getMimeMessage(session, senderlEnum, recieverEnum, ccEnum, bccEnum, getSubject(), null, null, null);
          exeSendTask(session,message,senderlEnum);
      }
+
+    private static Reportmail getMailBean() {
+        String tddate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String name = "马俊强";
+        String department = "技术中心—架构组";
+        String timeam = "08:30-11:30";
+        String workcontentam = "企业订阅数据下载工程了解";
+        String wayam = "讲述";
+        String telleram = "陈鑫";
+        String timepm = "13:00-17:30";
+        String waypm = "讲述";
+        String workcontentpm = "企业订阅数据下载工程了解";
+        String tellerpm = "陈鑫";
+        String experience = "";
+        String suggestion = "";
+        Reportmail reportmail = new Reportmail(tddate, name, department, timeam, workcontentam, wayam, telleram, timepm, waypm, workcontentpm, tellerpm, experience, suggestion);
+        return reportmail;
+    }
 
     /**
      * 生成主题
@@ -145,22 +153,13 @@ public class EmailSenderTask extends AbstractTask {
         return map;
     }
 
-    private static Reportmail getMailBean() {
-        String tddate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String name = "马俊强";
-        String department = "技术中心—架构组";
-        String timeam = "08:30-11:30";
-        String workcontentam = "EDR2.0舆情接口开发";
-        String wayam = "讲述";
-        String telleram = "陈鑫";
-        String timepm = "13:00-17:30";
-        String waypm = "讲述";
-        String workcontentpm = "EDR2.0舆情接口开发";
-        String tellerpm = "陈鑫";
-        String experience = "";
-        String suggestion = "";
-        Reportmail reportmail = new Reportmail(tddate, name, department, timeam, workcontentam, wayam, telleram, timepm, waypm, workcontentpm, tellerpm, experience, suggestion);
-        return reportmail;
+    @Override
+    protected void excute() {
+        try {
+            sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, null, BCCEnum.SelfMailTest);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

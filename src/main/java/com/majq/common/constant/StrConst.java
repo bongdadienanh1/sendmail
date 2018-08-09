@@ -33,7 +33,19 @@ public class StrConst {
 
     public static final String UTF_8_STR = "UTF-8";
 
-    public static final String [] RECIEVE_ADDRESSES = {SELF_QQ_MAIL_ADDRESS};
+    //试用期报告邮件收件人、密送人
+    public static final String HR_MAIL = "hr.dept.list@finchina.com";
+
+    public static final String CHENXIN_MAIL = "chenxin@finchina.com";
+
+    public static final String ZHAOLEI_MAIL = "zhaolei@finchina.com";
+
+    public static final String[] RECIEVE_ADDRESSES = {HR_MAIL, CHENXIN_MAIL, ZHAOLEI_MAIL};
 
     public static final List<String> RECIEVERS = Arrays.asList(RECIEVE_ADDRESSES);
+
+    public static final String[] BCC_ADDRESS = {SELF_QQ_MAIL_ADDRESS};
+
+    public static final List<String> BCC = Arrays.asList(BCC_ADDRESS);
+
 }

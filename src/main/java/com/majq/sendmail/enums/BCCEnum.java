@@ -9,9 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum BCCEnum {
-    SelfMailTest(StrConst.RECIEVERS);
+    SelfMailTest(StrConst.BCC);
     /**
-     * 收件人地址
+     * 密送人地址
      */
     InternetAddress [] bccAddress;
 
