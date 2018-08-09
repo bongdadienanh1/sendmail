@@ -28,11 +28,7 @@ import java.util.*;
 public class EmailSender {
 
      public static void main(String [] args) throws MessagingException {
-         String subject = "测试";
-         String content = "测试邮件";
-         String imgPath = "C:\\Users\\Mr.X\\Desktop\\5.ico";
-         String attachPath = "C:\\Users\\Mr.X\\Desktop\\css学习";
-         sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest, subject, content, imgPath, attachPath);
+         sendMail(SenderlEnum.SELF_COMPANY_MAIL, RecieverEnum.SelfMailTest, CCEnum.SelfMailTest, BCCEnum.SelfMailTest);
      }
 
     /**
@@ -41,12 +37,22 @@ public class EmailSender {
      * @param recieverEnum
      * @throws MessagingException
      */
-    private static void sendMail(SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum, String subject, String content, String imgPath, String attachPath) throws MessagingException {
+    public static void sendMail(SenderlEnum senderlEnum, RecieverEnum recieverEnum, CCEnum ccEnum, BCCEnum bccEnum) throws MessagingException {
          Properties properties = getMailProperties(senderlEnum);
          Session session = getSession(properties,senderlEnum);
-         Message message = getMimeMessage( session, senderlEnum, recieverEnum,ccEnum, bccEnum,subject,content,imgPath,attachPath);
+        Message message = getMimeMessage(session, senderlEnum, recieverEnum, ccEnum, bccEnum, null, getSubject(), null, null);
          exeSendTask(session,message,senderlEnum);
      }
+
+    /**
+     * 生成主题
+     *
+     * @return
+     */
+    private static String getSubject() {
+        String date = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
+        return "日报_马俊强_" + date;
+    }
 
     /**
      * 构造邮件属性
@@ -129,8 +135,8 @@ public class EmailSender {
         String waypm = "讲述";
         String workcontentpm = "EDR2.0舆情接口开发";
         String tellerpm = "陈鑫";
-        String experience = "很棒";
-        String suggestion = "没有";
+        String experience = "";
+        String suggestion = "";
         Reportmail reportmail = new Reportmail(tddate, name, department, timeam, workcontentam, wayam, telleram, timepm, waypm, workcontentpm, tellerpm, experience, suggestion);
         return reportmail;
     }

@@ -3,6 +3,16 @@
     <style type="text/css">
         table, td {
             border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        td {
+            font-size: 14px;
+            font-family: "Microsoft YaHei UI";
+            padding: 2px 20px;
+            text-align: center;
+            vertical-align: center;
+            height: 20px;
         }
     </style>
 </head>
@@ -10,7 +20,7 @@
     <table>
         <tr>
             <td>日期</td>
-            <td>${reportmail.tddate}</td>
+            <td colspan="3">${reportmail.tddate}</td>
         </tr>
         <tr>
             <td>
@@ -40,11 +50,11 @@
         </tr>
         <tr>
             <td>学习心得</td>
-            <td>${reportmail.experience}</td>
+            <td colspan="3">${reportmail.experience}</td>
         </tr>
         <tr>
             <td>问题建议</td>
-            <td>${reportmail.suggestion}</td>
+            <td colspan="3">${reportmail.suggestion}</td>
         </tr>
     </table>
 </div>
