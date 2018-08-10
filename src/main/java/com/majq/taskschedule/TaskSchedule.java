@@ -9,15 +9,24 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class TaskSchedule {
 
-    public long start;
-    private ScheduledExecutorService scheduledExecutorService;
+    /**
+     * 单例
+     */
     private static TaskSchedule instance = null;
+    /**
+     * 任务执行器
+     */
+    private ScheduledExecutorService scheduledExecutorService;
 
     private TaskSchedule() {
         this.scheduledExecutorService = Executors.newScheduledThreadPool(2);
-        this.start = System.currentTimeMillis();
     }
 
+    /**
+     * 返回实例
+     *
+     * @return
+     */
     public static synchronized TaskSchedule getInstance() {
         if (null == instance) {
             instance = new TaskSchedule();
@@ -25,6 +34,10 @@ public class TaskSchedule {
         return instance;
     }
 
+    /**
+     * 执行任务
+     * @param task
+     */
     public void executeTask(AbstractTask task) {
         scheduledExecutorService.scheduleAtFixedRate(task, task.getInitialDelay(), task.getPeriod(), task.getUnit());
     }
