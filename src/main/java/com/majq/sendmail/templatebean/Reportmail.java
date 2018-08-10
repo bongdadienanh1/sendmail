@@ -19,7 +19,10 @@ public class Reportmail {
     private String experience;
     private String suggestion;
 
-    public Reportmail(String tddate, String name, String department, String timeam, String workcontentam, String wayam, String telleram, String timepm, String waypm, String workcontentpm, String tellerpm, String experience, String suggestion) {
+    public Reportmail(String tddate, String name, String department, String timeam,
+                      String workcontentam, String wayam, String telleram, String timepm,
+                      String waypm, String workcontentpm, String tellerpm, String experience,
+                      String suggestion) {
         this.tddate = tddate;
         this.name = name;
         this.department = department;
